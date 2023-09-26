@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('newslettters', function (Blueprint $table) {
+        Schema::create('tbl_concerns', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('message');
+            $table->string('subject');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('newslettters');
+        Schema::dropIfExists('tbl_concerns');
     }
 };

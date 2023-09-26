@@ -23,7 +23,7 @@
                 </div>
                 <div class="user-info">
                     <div class="user">
-                        <span>Admin Name</span>
+                        <span>{{ Auth::user()->name }}</span>
                         <i class="fa-solid fa-angle-down"></i>
                     </div>
                 </div>

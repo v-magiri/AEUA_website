@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Newsletter extends Model
 {
     use HasFactory;
-    protected $table="tbl_events";
+    protected $table="tbl_newsletters";
     protected $fillable = [
-        'event_date',
-        'location',
-        'theme',
-        'description',
-        'image'
+        'title',
+        'issued_by',
+        'issued_on',
+        'document'
     ];
 }

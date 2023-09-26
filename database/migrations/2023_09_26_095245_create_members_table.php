@@ -11,8 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('tbl_members', function (Blueprint $table) {
             $table->id();
+            $table->year('year_founded');
+            $table->string('university_name')->unique();
+            $table->integer('number_of_schools');
+            $table->integer('number_of_students');
+            $table->integer('number_of_lecturers');
+            $table->string('country')->default("");
+            $table->string('city')->default("");
+            $table->string('website')->default("")->unique();
+            $table->string('address')->default("");
+            $table->string('createdBy')->default("");
+            $table->string('university_email')->unique();
             $table->timestamps();
         });
     }
@@ -22,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('tbl_members');
     }
 };
