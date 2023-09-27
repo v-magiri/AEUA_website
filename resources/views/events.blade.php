@@ -7,10 +7,13 @@
     <div class="listing">
         <div class="table-wrapper">
             <span>Events</span>
-            <div class="addBtn" data-toggle="modal" data-target="#eventModalCreate">
+            <div class="addBtn" id="openForm" data-toggle="modal" data-target="#eventModalCreate">
                 <i class="fa-solid fa-plus"></i>
                 <span>Add Event</span>
             </div>
+            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Launch demo modal
+            </button> -->
         </div>
         <div class="table_listing">
             <table class="tbl_listing">

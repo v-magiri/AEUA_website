@@ -7,7 +7,7 @@
 <div class="dialog" id="eventCreateModal">
     <div class="dialog-content">
         <div class="dialog-header">
-            <span class="dialog-title">Add Event</span>
+            <span class="dialog-title">Edit Event</span>
             <span class="close" id="closeDialog">&times;</span>
         </div>
         <div class="dialog-body">

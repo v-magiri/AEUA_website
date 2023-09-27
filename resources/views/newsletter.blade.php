@@ -7,7 +7,7 @@
     <div class="listing">
         <div class="table-wrapper">
             <span>Newsletters</span>
-            <div class="addBtn">
+            <div class="addBtn" id="openForm" data-toggle="modal" data-target="#eventModalCreate">
                 <i class="fa-solid fa-plus"></i>
                 <span>Add Newsletter</span>
             </div>
@@ -61,4 +61,5 @@
         </div>
 
     </div>
-@stop
+    @include('modals.create-newsletter')
+@endsection

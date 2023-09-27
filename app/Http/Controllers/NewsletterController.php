@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Newsletter;
+use Illuminate\Support\Facades\Log;
 
 class NewsletterController extends Controller
 {
@@ -40,6 +41,8 @@ class NewsletterController extends Controller
                 'issued_by' => 'required|string',
                 'document' => 'required|file|mimes:pdf,docx|max:2048',
             ]);
+
+            Log::info($validatedData);
 
             if($request->hasFile('document')){
                 $document=$request->file('document');

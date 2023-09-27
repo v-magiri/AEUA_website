@@ -15,7 +15,7 @@ class EventController extends Controller
     public function index()
     {
         //
-        $perPage=1;
+        $perPage=25;
 
         $events=Event::orderBy('created_at','desc')->paginate($perPage);
 
