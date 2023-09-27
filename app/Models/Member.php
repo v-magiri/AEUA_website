@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Leader;
+use App\Models\ContactPerson;
+use App\Models\EntreprenuershipStrategy;
 
 class Member extends Model
 {

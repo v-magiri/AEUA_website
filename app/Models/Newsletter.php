@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Member;
 
 class Newsletter extends Model
 {
@@ -13,6 +14,6 @@ class Newsletter extends Model
         'title',
         'issued_by',
         'issued_on',
-        'document'
+        'document_path'
     ];
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('issued_by');
             $table->string('issued_on');
-            $table->string('document');
+            $table->string('document_path');
             $table->timestamps();
         });
     }

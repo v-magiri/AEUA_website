@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ContactPerson extends Model
 {
     use HasFactory;
+    protected $table='tbl_contact_people';
     protected $fillable=[
         'name',
         'position',

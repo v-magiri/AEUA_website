@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
+use Illuminate\Support\Facades\Log;
+
 
 class EventController extends Controller
 {
@@ -12,6 +15,12 @@ class EventController extends Controller
     public function index()
     {
         //
+        $perPage=1;
+
+        $events=Event::orderBy('created_at','desc')->paginate($perPage);
+
+
+        return view('events',compact('events'));
     }
 
     /**
@@ -20,6 +29,7 @@ class EventController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -28,6 +38,33 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //
+        try{
+            $eventData=$request->validate([
+                'theme'=>'required|string',
+                'location'=>'required|string',
+                'event_date'=>'required|string',
+                'description'=>'required|string',
+            ]);
+
+            // dd($eventData);
+                // Upload and store the image
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension=$file->getClientOriginalExtension();
+                $filename=time().'.'.$extension;
+
+                $file->move('uploads/events/',$filename);
+                $eventData['image_path']=$filename;
+            }
+    
+            $event=Event::create($eventData);
+
+            $event->save();
+
+            return response()->json(['message' => 'Data saved successfully']);
+        }catch(Exception $e){
+            Log::error($e->getMessage());
+        }
     }
 
     /**

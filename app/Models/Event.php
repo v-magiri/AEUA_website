@@ -14,6 +14,6 @@ class Event extends Model
         'location',
         'theme',
         'description',
-        'image'
+        'image_path'
     ];
 }
