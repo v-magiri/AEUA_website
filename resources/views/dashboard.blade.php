@@ -48,13 +48,13 @@
                             </div>
                             <div class="popupMenu" id="popUpMenu">
                                 <div class="menu-item">
-                                    <a href="#">
+                                    <a href="{{route('event.show',['id'=>$event->id])}}">
                                         <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                         <span>View Event</span>
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a href="#">
+                                    <a href="{{route('event.edit',['id'=>$event->id])}}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                         <span>Edit Event</span>
                                     </a>

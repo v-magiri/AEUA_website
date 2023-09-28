@@ -23,6 +23,13 @@ class MemberController extends Controller
         return view('members',compact('members'));
     }
 
+    public function getMembersCount(){
+        
+        $memberCount=Member::count();
+
+        return view('web.home-web',compact('memberCount'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -127,6 +134,8 @@ class MemberController extends Controller
     public function show(string $id)
     {
         //
+        $member=Member::findOrFail($id);
+        return view('modals.member',compact('member'));
     }
 
     /**
@@ -135,6 +144,14 @@ class MemberController extends Controller
     public function edit(string $id)
     {
         //
+        $member=Member::findOrFail($id);
+        if($member){
+            $leader=$member->leader;
+            $person=$member->contactPeople;
+            $entreprenuership=$member->entreprenuershipStrategy;
+        }
+        Log::info($entreprenuership->support_frameworks);
+        return view('modals.edit-member',compact('member','leader','entreprenuership'));
     }
 
     /**
@@ -151,5 +168,10 @@ class MemberController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getMembers(){
+        $members=Member::all();
+        return view('web.about-web',compact('members'));
     }
 }

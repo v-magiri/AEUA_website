@@ -323,4 +323,55 @@ table {
     color: var(--dark);
     font-weight: 500;
 }
+.edit-container,.member-edit-cont{
+    margin:0.8rem 2rem;
+    padding:2rem;
+}
+.edit-container form{
+    width:60%;
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+}
+.edit-form{
+    width: 80%;
+    margin:auto;
+}
+.form-header span{
+    text-align: center;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.form-body{
+    display: flex;
+    flex-direction: column;
+}
+.form-body .row-group{
+    display: flex;
+    flex-direction: row !important;
+}
+.section-title span{
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+.input-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding:0.4rem;
+    margin-bottom:0.8rem;
+}
+.input-group label{
+    margin-bottom: 0.35rem;
+}
+.input-group input{
+    width: 100% !important;
+}
+#errorMessage {
+    display: none;
+    font-size: 0.8em;
+    color:#DC3545 !important;
+}
 /* END OF MODALS  */

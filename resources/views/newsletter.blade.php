@@ -35,7 +35,7 @@
                                     </button>
                                     <div class="popupMenu" id="popUpMenu">
                                         <div class="menu-item">
-                                            <a href="#">
+                                            <a href="{{route('newsletter.show',['id'=>$newsletter->id])}}">
                                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                                 <span>View Newsletter</span>
                                             </a>

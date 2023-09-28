@@ -37,19 +37,19 @@
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </button>
                                 <div class="popupMenu" id="popUpMenu">
-                                    <div class="menu-item">
-                                        <a href="#">
+                                    <div class="menu-item" id="viewEventBtn">
+                                        <a href="{{route('event.show',['id'=>$event->id])}}">
                                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                             <span>View Event</span>
                                         </a>
                                     </div>
-                                    <div class="menu-item">
-                                        <a href="#">
+                                    <div class="menu-item" id="editEventBtn" >
+                                        <a href="{{route('event.edit',['id'=>$event->id])}}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                             <span>Edit Event</span>
                                         </a>
                                     </div>
-                                    <div class="menu-item">
+                                    <div class="menu-item" id="deleteEventBtn" data-toggle="modal" data-target="#exampleModalCenter">
                                         <a href="#">
                                             <i class="fa-solid fa-trash"></i>
                                             <span>Delete Event</span>

@@ -35,13 +35,13 @@
                                 </button>
                                 <div class="popupMenu" id="popUpMenu">
                                     <div class="menu-item">
-                                        <a href="#">
+                                        <a href="{{route('member.show',['id'=>$member->id])}}">
                                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                             <span>View Member</span>
                                         </a>
                                     </div>
                                     <div class="menu-item">
-                                        <a href="#">
+                                        <a href="{{route('member.edit',['id'=>$member->id])}}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                             <span>Edit Member</span>
                                         </a>

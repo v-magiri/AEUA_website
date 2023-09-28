@@ -75,6 +75,8 @@ class NewsletterController extends Controller
     public function show(string $id)
     {
         //
+        $newsletter=Newsletter::findOrFail($id);
+        return view('modals.newsletter',compact('newsletter'));
     }
 
     /**
@@ -83,6 +85,8 @@ class NewsletterController extends Controller
     public function edit(string $id)
     {
         //
+        $newsletter=Newsletter::findOrFail($id);
+        return view('modals.edit-newsletter',compact('newsletter'));
     }
 
     /**

@@ -73,6 +73,8 @@ class EventController extends Controller
     public function show(string $id)
     {
         //
+        $event=Event::findOrFail($id);
+        return view('modals.event',compact('event'));
     }
 
     /**
@@ -81,6 +83,8 @@ class EventController extends Controller
     public function edit(string $id)
     {
         //
+        $event=Event::findOrFail($id);
+        return view('modals.edit-event',compact('event'));
     }
 
     /**
