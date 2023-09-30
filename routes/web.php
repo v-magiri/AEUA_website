@@ -8,6 +8,7 @@ use App\Http\Controllers\EntreprenuershipController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvolvementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,11 @@ Route::post('admin/events',
     ->middleware(['auth', 'verified'])
     ->name('event.store');
 
+Route::delete('admin/event/delete/{id}',
+    [EventController::class,"destroy"]
+    )->middleware(['auth', 'verified'])
+    ->name('event.destroy');
+
 // MEMBER ROUTES 
 Route::get('admin/members', 
     [MemberController::class,"index"])
@@ -76,6 +82,16 @@ Route::post('admin/member',
         )->middleware(['auth', 'verified'])
         ->name('member.store');
 
+Route::put('admin/member/edit/{id}',
+        [MemberController::class,"update"]
+        )->middleware(['auth', 'verified'])
+        ->name('member.update');
+
+Route::delete('admin/member/delete/{id}',
+        [MemberController::class,"destroy"]
+        )->middleware(['auth', 'verified'])
+        ->name('member.destroy');
+
 // NEWSLETTER ROUTES 
 Route::get('admin/newsletter', 
     [NewsletterController::class,'index'])
@@ -92,15 +108,27 @@ Route::get('admin/newsletter/edit/{id}',
     ->middleware(['auth', 'verified'])
     ->name('newsletter.edit');
 
-Route::put('admin/newsletter/edit/{id}', 
-    [NewsletterController::class,'edit'])
-    ->middleware(['auth', 'verified'])
-    ->name('newsletter.update');
-
 Route::post('admin/newsletter',
     [NewsletterController::class,"store"]
     )-> middleware(['auth', 'verified'])
     -> name('newsletter.store');
+Route::delete('admin/newsletter/delete/{id}',
+    [NewsletterController::class,"destroy"]
+    )->middleware(['auth', 'verified'])
+    ->name('newsletter.destroy');
+
+// concerns
+Route::get('admin/concerns', 
+    [ConcernController::class,"index"])
+    ->middleware(['auth', 'verified'])
+    ->name('concerns');
+
+// QUESTION OR INVOLVEMENT CHALLENGES OR IDEAS
+
+Route::get('admin/inquiries', 
+    [InvolvementController::class,"index"])
+    ->middleware(['auth', 'verified'])
+    ->name('inquiries');
 
 // PUBLIC VIEW 
 Route::get('/events', function () {
@@ -128,13 +156,13 @@ Route::get('/member-register', function () {
 
 Route::get('/get/involved', function () {
     return view('web.involvement');
-});
+})->name('involvement');
 
-Route::post('/entreprenuership',[EntreprenuershipController::class,'store'])->name('entreprenuership.store');
+Route::post('/involvement',[InvolvementController::class,'saveInvolvement'])->name('involvement.store');
 
 Route::post('/register/member',[MemberController::class,"store"])->name('member.store');
 
-Route::post('/send/message',[ConcernController::class,"saveConcern"])->name('concern.store');
+Route::post('/send/message',[ConcernController::class,"store"])->name('concern.store');
 
 
 Route::middleware('auth')->group(function () {

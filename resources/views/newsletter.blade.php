@@ -41,7 +41,7 @@
                                             </a>
                                         </div>
                                         <div class="menu-item">
-                                            <a href="#">
+                                            <a class="deleteBtn" id="deleteBtn" data-id="{{$newsletter->id}}">
                                                 <i class="fa-solid fa-trash"></i>
                                                 <span>Delete Newsletter</span>
                                             </a>
@@ -62,4 +62,65 @@
 
     </div>
     @include('modals.create-newsletter')
+
+    <div class="dialog" id="deleteModal">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <span class="dialog-title">Delete Newsletter</span>
+                <span class="close" id="hideDialog">&times;</span>
+            </div>
+            <div class="dialog-body">
+                <form action="{{route('newsletter.destroy',$newsletter->id)}}" method="POST" id="formDelete">
+                    @csrf
+                    @method('DELETE')
+                    <div class="">
+                        <span>Are you Sure you Want to delete the Newsletter?</span>
+                    </div>
+                    <div class="actionBtns">
+                        <div class="cancelBtn" id="cancelDelete">
+                            Cancel
+                        </div>
+                        <div class="deleteBtn" id="confirmDelete">
+                            Delete
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const deleteBtn=document.getElementById("deleteBtn");
+        const popUpMenu=document.getElementById("popUpMenu");
+        const hideModal=document.getElementById("cancelDelete");
+        const hideDialog=document.getElementById('hideDialog');
+        const deleteDialog=document.getElementById('deleteModal');
+        const confirmDelete=document.getElementById('confirmDelete');
+        const form=document.getElementById('formDelete');
+
+
+        deleteBtn.addEventListener('click',OpenDeleteDialog);
+
+        confirmDelete.addEventListener('click',function(e){
+            e.preventDefault();
+            form.submit();
+            hideDeleteModal();
+        })
+
+
+        hideModal.addEventListener('click',hideDeleteModal);
+
+        hideDialog.addEventListener('click',hideDeleteModal);
+
+        function OpenDeleteDialog() {
+            deleteDialog.style.display = 'block';
+            popUpMenu.classList.toggle('menu-visible');
+        }
+
+        function hideDeleteModal() {
+
+            deleteDialog.style.display = 'none';
+
+        }
+    </script>
 @endsection

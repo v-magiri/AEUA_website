@@ -9002,6 +9002,97 @@ textarea.form-control {
 .event-date .fa-solid{
   color:#0071c4;
 }
+.formBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: none !important;
+}
+.formBtn .submitBtn{
+  background-color: #3393c5;
+  color:var(--white)
+}
+.slider-container{
+  width: 50%;
+  background-color: #3393c5;
+  padding:1.3rem 0;
+  position:absolute;
+  bottom: 20px;
+  left:0;
+  color:#fff;
+  overflow: hidden ;
+  white-space: nowrap;
+}
+.slider-container:hover .slider-content{
+  animation-play-state: paused;
+}
+.slider-content{
+  display: inline-block;
+  animation: 10s slideAnimation infinite linear;
+}
+.slider-item{
+  margin:0 0.6rem;
+  color: #fff;
+
+}
+
+.contact-title{
+  font-weight: 500;
+  font-size: 2rem;
+}
+.contact-text{
+  font-weight: 400;
+  font-size: 1.5rem;
+  color:#343a40;
+}
+.contact-form{
+  margin:auto;
+  width:50%;
+}
+.contact-form .form-group label{
+  color:#343a40;
+  font-weight: 400;
+}
+.submit-Btn{
+  display: inline;
+  width: 50% !important;
+  text-align: center;
+  /* margin: 2rem auto 0 auto; */
+}
+
+
+/* slider Animations */
+@keyframes slideAnimation {
+  from{
+    transform: translateX(0);
+  }
+  to{
+    transform: translateX(-100%);
+  }
+}
+/* .slider-content .separator{
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #fff;
+} */
+/* .carousel-text{
+  font-weight: 400 !important;
+} */
+.involveBtn a{
+  display:inline !important;
+  border-radius: 1.5rem !important;
+}
+.involveBtn a:hover, .involveBtn a:active{
+  background-color: #3393c5 !important;
+  border: 1px solid #3393c5;
+  outline:none;
+
+}
+.memberBtn a{
+  display: inline !important;
+  outline: none !important;
+  border: none !important;
+}
 .member-item{
   display: flex;
   min-height: 10rem;

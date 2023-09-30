@@ -4,20 +4,37 @@
 @section('content')
     <div class="stats-board">
         <div class="item">
-            <i class="fa-solid fa-users"></i>
-            <span class="item_count">{{$members}}</span> 
-            <span class="item_title">Total Members</span>            
+            <a href="{{url('admin/members')}}">
+                <i class="fa-solid fa-users"></i>
+                <span class="item_count">{{$members}}</span> 
+                <span class="item_title">Total Members</span> 
+            </a>           
         </div>
         <div class="item">
-            <i class="fa-solid fa-calendar"></i>          
-            <span class="item_count">{{$eventsCount}}</span>
-            <span class="item_title">Upcoming Events</span>  
-             
+            <a href="{{url('admin/events')}}">
+                <i class="fa-solid fa-calendar"></i>          
+                <span class="item_count">{{$eventsCount}}</span>
+                <span class="item_title">Upcoming Events</span> 
+            </a>             
         </div>
         <div class="item">
+            <a href="{{url('admin/concerns')}}">
+                <i class="fa-solid fa-message"></i>
+                <span class="item_count">{{$concernCount}}</span>   
+                <span class="item_title">Inquiries</span> 
+            </a>
+        </div>
+        <!-- <div class="item">
             <i class="fa-solid fa-square-rss"></i>
             <span class="item_count">14</span>   
             <span class="item_title">Newsletters</span> 
+        </div> -->
+        <div class="item">
+            <a href="{{url('admin/inquiries')}}">
+                <i class="fa-solid fa-circle-question"></i>
+                <span class="item_count">{{$involvementCount}}</span>   
+                <span class="item_title">Member Questions</span> 
+            </a>
         </div>
     </div>
     <div class="listing">
@@ -60,10 +77,12 @@
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a href="#">
+                                    <form action="{{ route('event.destroy', $event->id) }}" method="POST" class="item-delete">
+                                            @csrf
+                                            @method('DELETE') 
                                         <i class="fa-solid fa-trash"></i>
                                         <span>Delete Event</span>
-                                    </a>
+                                    </form>
                                 </div>
                             </div>
                         </td>

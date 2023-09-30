@@ -3,31 +3,82 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Concern;
 
 class ConcernController extends Controller
 {
-    // save a concern 
-    public function saveConcern(Request $request){
-        // save an entreprenuership question
-        try{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+        $perPage=25;
+        $concerns=Concern::orderBy('created_at','desc')->paginate($perPage);
+        return view('concerns',compact('concerns'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
             //
-            $data=$request->validate([
-                'name'=>'required|string',
-                'email'=>'required|string',
-                'address'=>'required|string',
-                'ideaDescription'=>'required|string'
-            ]);
+            try{
 
-            $idea = EntreprenuershipQuestion::create($data);
+                $validateData=$request->validate([
+                    'name'=>'required|string',
+                    'email'=>'required|string',
+                    'message'=>'required|string',
+                    'member_name'=>'required|string',
+                ]);
+    
+                $concern=Concern::create($validateData);
+    
+                $successMessage="Message Recorded";
+                return redirect('/contact')->with('success',$successMessage);
+            }catch(Exception $e){
+                Log::error($e->getMessage());
+            }
+    }
 
-            $idea->save();
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
 
-            $successMessage="Idea Recorded Successfully";
-                
-            return redirect('/entreprenuership')->with('success',$successMessage);
-        }catch(Exception $e){
-            Log::error($e->getMessage());
-        }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

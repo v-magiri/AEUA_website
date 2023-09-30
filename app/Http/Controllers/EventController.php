@@ -61,7 +61,7 @@ class EventController extends Controller
 
             $event->save();
 
-            return response()->json(['message' => 'Data saved successfully']);
+            return view('events')->with('success','Event Successfully Added');
         }catch(Exception $e){
             Log::error($e->getMessage());
         }
@@ -93,6 +93,24 @@ class EventController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        try{
+
+            $updateData=$request->validate([
+                'theme'=>'required|string',
+                'location'=>'required|string',
+                'event_date'=>'required|string',
+                'description'=>'required|string',
+            ]);
+
+            $event = Event::findOrFail($id);
+
+            $event->update($updateData);
+
+            return redirect()->route('events')->with('success','Event Updated Successfully');
+
+        }catch(Exception $e){
+            Log::error($e->getMessage());
+        }
     }
 
     /**
@@ -101,5 +119,13 @@ class EventController extends Controller
     public function destroy(string $id)
     {
         //
+        $event=Event::findOrFail($id);
+        if(!$event){
+            abort(404);
+            return redirect()->route('events')->with('error','Event Does Not Exist');
+        }
+        $event->delete();
+    
+        return redirect()->route('events')->with('success','Event Deleted Successfully');
     }
 }

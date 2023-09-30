@@ -5,11 +5,12 @@
 
 @section('content')
 <div class="edit-container">
-    <form action="{{route('event.update',$event->id)}}" method="post" enctype="multipart/form-data">
-        @csrf
         <div class="edit-wrapper">
             <span>Update Event</span>
         </div>
+    <form action="{{route('event.update',$event->id)}}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
         <div class="form-group">
             <label for="theme" class="my-1">Theme:</label>
             <input type="text" class="form-control" name="theme" value="{{$event->theme}}" placeholder="Theme" required>

@@ -5,7 +5,7 @@
 
 @include('partials/carousel',['pageTitle'=>'Newsletters']);
 
-<section class="ftco-section bg-light">
+<section class="ftco-section">
     	<div class="container-fluid">
     		<div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-5 heading-section ftco-animate text-center">
@@ -38,7 +38,7 @@
     <!-- END OF NEWSLETTERS -->
 
     <!-- START OF NEWSLETTER TEMPLATE -->
-    <section class="ftco-section">
+    <section class="ftco-section bg-light">
       <div class="container">
       	<div class="row justify-content-center mb-1 pb-1">
           <div class="col-md-7 heading-section ftco-animate text-center">

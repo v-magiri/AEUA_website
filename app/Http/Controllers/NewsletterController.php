@@ -60,7 +60,7 @@ class NewsletterController extends Controller
 
                 $newsletter->save();
 
-                return response()->json(['message' => 'Data saved successfully']);
+                return view('newsletter')->with('success','Event Successfully Added');
             }
             return response()->json(['message' => 'File was not found']);
         }catch(Exception $e){
@@ -103,5 +103,13 @@ class NewsletterController extends Controller
     public function destroy(string $id)
     {
         //
+        $newsletter=Newsletter::findOrFail($id);
+        if(!$newsletter){
+            abort(404);
+            return redirect()->route('newsletter')->with('error','Newsletter Does Not Exist');
+        }
+        $newsletter->delete();
+    
+        return redirect()->route('newsletter')->with('success','Newsletter Deleted Successfully');
     }
 }

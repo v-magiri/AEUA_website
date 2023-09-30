@@ -6,6 +6,16 @@ const progressSteps = document.querySelectorAll(".progress-step");
 const yearPicker=document.getElementById("year");
 const yearSelect=document.getElementById("year_appointed");
 const responseMessage=document.getElementById('response-alert');
+const defaultOption=document.createElement("option");
+const customOption=document.createElement("option");
+defaultOption.selected;
+customOption.selected;
+defaultOption.text="Select Option";
+defaultOption.value="";
+customOption.text="Select Option";
+customOption.value="";
+yearPicker.append(defaultOption);
+yearSelect.append(customOption);
 
 let formStepsNum = 0;
 let blackInput=0;

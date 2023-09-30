@@ -3,41 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Member;
-use App\Models\Event;
-use App\Models\Concern;
 use App\Models\EntreprenuershipQuestion;
-use Illuminate\Support\Carbon;
 
-class DashboardController extends Controller
+class InvolvementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // fetch Data for the Dash board
-        $members=Member::count();
+        //
 
-        $current=new Carbon();
-
-        $threeMonthAgo=$current::now()->subMonths(3);
-
-
-        $involvementCount=EntreprenuershipQuestion::where('created_at','>=',$threeMonthAgo)->count();
-
-        $concernCount=Concern::where('created_at','>=',$threeMonthAgo)->count();
-
-        $currentDate = now()->format('Y-m-d');
-
-        $eventsCount=Event::where('event_date','>',$currentDate)->count();
-
-        $events=Event::where('event_date','>',$currentDate)
-                ->orderBy('event_date')
-                ->take(5)
-                ->get();
-
-        return view('dashboard',compact('members','eventsCount','events','involvementCount','concernCount'));
+        $perPage=25;
+        $ideas=EntreprenuershipQuestion::orderBy('created_at','desc')->paginate($perPage);
+        return view('involvement',compact('ideas'));
     }
 
     /**
@@ -54,6 +33,31 @@ class DashboardController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    // save a concern 
+    public function saveInvolvement(Request $request){
+        // save an entreprenuership question
+        try{
+            //
+            $data=$request->validate([
+                'name'=>'required|string',
+                'email'=>'required|string',
+                'address'=>'required|string',
+                'ideaDescription'=>'required|string'
+            ]);
+
+            $idea = EntreprenuershipQuestion::create($data);
+
+            $idea->save();
+
+
+            $successMessage="Idea Recorded Successfully";
+                
+            return redirect('/get/involved')->with('success',$successMessage);
+        }catch(Exception $e){
+            Log::error($e->getMessage());
+        }
     }
 
     /**

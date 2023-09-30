@@ -8,6 +8,7 @@ use App\Models\Member;
 use App\Models\Leader;
 use App\Models\ContactPerson;
 use App\Models\EntreprenuershipStrategy;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class MemberController extends Controller
@@ -26,8 +27,9 @@ class MemberController extends Controller
     public function getMembersCount(){
         
         $memberCount=Member::count();
+        $names=Member::select('university_name')->get();
 
-        return view('web.home-web',compact('memberCount'));
+        return view('web.home-web',compact('memberCount','names'));
     }
 
     /**
@@ -46,7 +48,6 @@ class MemberController extends Controller
     {
         //
             try{
-
                     // Validate the incoming data
                     $validatedData = $request->validate([
                         // Contact Person Details
@@ -121,6 +122,8 @@ class MemberController extends Controller
                 $member->save();
 
                 $successMessage="Member Registration  Successful";
+
+                return redirect('/member-register')->with('success',$successMessage);
             }catch(Exception $e){
                 //in case of error log the errors
 
@@ -135,7 +138,12 @@ class MemberController extends Controller
     {
         //
         $member=Member::findOrFail($id);
-        return view('modals.member',compact('member'));
+        if($member){
+            $leader=$member->leader;
+            $persons=$member->contactPeople;;
+            $entreprenuership=$member->entreprenuershipStrategy;
+        }
+        return view('modals.member',compact('member','leader','persons','entreprenuership'));
     }
 
     /**
@@ -160,6 +168,68 @@ class MemberController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        try{
+
+            // dd($request->all());
+
+                // Validate the incoming data
+                $updateData = $request->validate([
+                    // Contact Person Details
+                    // 'person.contact_name' => 'required|string',
+                    // 'person.contact_title' => 'required|string',
+                    // 'person.position' => 'required|string',
+    
+                    // University Member Details
+                    'member.uni_name' => 'required|string',
+                    'member.schools' => 'required|integer',
+                    'member.students' => 'required|integer',
+                    'member.lecturers' => 'required|integer',
+                    'member.website' => 'required|string',
+                    'member.city' => 'required|string',
+                    'member.uni_email' => 'required|string',
+                    'member.country' => 'required|string',
+                    'member.address' =>'required|string',
+                    'member.year' => 'required|string',
+    
+                    // University Leader Details
+                    'leader.title' => 'required|string',
+                    'leader.year_appointed' => 'required|string',
+                    'leader.name' => 'required|string',
+    
+                    //entreprenuership strategy
+    
+                    'entreprenuership.strategy' => 'required|string',
+                    'entreprenuership.entre_proportion' => 'required|integer',
+                    'entreprenuership.support' => 'required|integer',
+                ]);
+    
+            
+    
+            DB::beginTransaction();
+    
+            $member=Member::findOrFail($id);
+    
+            // $contactPersonData=$updateData->input('person');
+            $memberData=$updateData['member'];
+            $leaderData=$updateData['leader'];
+            $entreprenuershipData=$updateData['entreprenuership'];
+    
+            //update begins here
+    
+            // $member->contactPeople->update($contactPersonData);
+            $member->leader->update($leaderData);
+            $member->entreprenuershipStrategy->update($entreprenuershipData);
+            $member->update($memberData);
+
+            $member->save();
+    
+            DB::commit();
+    
+            return redirect()->route('members')->with('success','Member Details Updated Successfully');
+        }catch(Exception $e){
+            Log::error($e->getMessage());
+        }
+
     }
 
     /**
@@ -167,7 +237,16 @@ class MemberController extends Controller
      */
     public function destroy(string $id)
     {
+
         //
+        $member=Member::findOrFail($id);
+        if(!$member){
+            abort(404);
+            return redirect()->route('members')->with('error','Member Does Not Exist');
+        }
+        $member->delete();
+    
+        return redirect()->route('members')->with('success','Member Deleted Successfully');
     }
 
     public function getMembers(){

@@ -12,7 +12,7 @@ class Concern extends Model
     protected $fillable=[
         'email',
         'name',
-        'subject',
+        'member_name ',
         'message',
     ];
 }

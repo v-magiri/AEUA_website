@@ -2,8 +2,27 @@
 @section('Web_page','AEUA')
 
 @section('content')
+<div class="hero-wrap" style="background-image: url('../assets/africa.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Alliance for Entrepreneurial Universities in Africa</h1>
+                <p class="mb-5 carousel-text" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Get Involved by sending your entrepreneurship questions and challenges.</p>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" class="involveBtn mt-1"><a href="{{url('/get/involved')}}" class="btn btn-white px-3 py-3 mt-2">Get Involved now</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="slider-container" data-scrollax="properties: { translateY: '15%'}">
+      <div class="slider-content">
+        <span>Alliance Members <span class="separator"> : </span> </span>
+        @foreach($names as $name)
+          <span class="slider-item">{{$name->university_name}}</span>
+        @endforeach
+      </div>
+    </div>
+</div>
 
-@include('partials/carousel',['pageTitle'=>'Alliance for Entrepreneurial Universities in Africa']);
 <section class="ftco-counter ftco-intro" id="section-counter">
     	<div class="container">
     		<div class="row no-gutters">
@@ -12,8 +31,8 @@
               <div class="text">
               <h3 class="mb-4 text-white">Members</h3>
               <strong class="number" data-number="{{$memberCount}}">45</strong>
-              <p><a href="{{url('/member-register')}}" 
-                 class="btn btn-white px-3 py-2 mt-2">Become a member</a>
+              <p class="memberBtn mt-3"><a href="{{url('/member-register')}}" 
+                 class="btn btn-white px-3 py-3 mt-2">Become a member</a>
               </p>
               </div>
             </div>
@@ -22,9 +41,9 @@
             <div class="block-18 color-2 align-items-stretch">
               <div class="text overlay-box">
               	<h3 class="mb-4 text-white">Get Involved</h3>
-              	<p class="involvement-txt mb-3">Sign up to send your entrepreneurship questions and challenge.</p>
-              	<p class="signupBtn mt-1"><a href="{{url('/entreprenuership')}}" 
-                  class="btn btn-white px-3 py-2 mt-2">Sign up now</a></p>
+              	<p class="involvement-txt mb-3">Get Involved by sending your entrepreneurship questions and challenges.</p>
+              	<p class="signupBtn"><a href="{{url('/get/involved')}}" 
+                  class="btn btn-white px-3  mt-2">Sign up now</a></p>
               </div>
             </div>
           </div>
@@ -194,4 +213,8 @@
       </div>
     </section>
         <!-- END OF EVENTS -->
+    <script>
+      const sliderCopy=document.querySelector(".slider-content").cloneNode(true);
+      document.querySelector(".slider-container").appendChild(sliderCopy);
+    </script>
 @endsection
