@@ -21,42 +21,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($members as $member)
-                    <tr>
-                        <td>{{\Illuminate\Support\Str::limit($member->university_name,30,' ...')}}</td>
-                        <td>{{$member->city}}</td>
-                        <td>{{$member->country}}</td>
-                        <td>{{$member->number_of_students}}</td>
-                        <td>{{$member->website}}</td>
-                        <td class="actionsContainer">
-                            <div class="dropdown">
-                                <button class="actionsBtn" onclick="togglePopMenu()">
-                                    <i class="fa-solid fa-ellipsis"></i>
-                                </button>
-                                <div class="popupMenu" id="popUpMenu">
-                                    <div class="menu-item">
-                                        <a href="{{route('member.show',['id'=>$member->id])}}">
-                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                            <span>View Member</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a href="{{route('member.edit',['id'=>$member->id])}}">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                            <span>Edit Member</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="deleteBtn" id="deleteBtn" data-id="{{$member->id}}">
-                                            <i class="fa-solid fa-trash"></i>
-                                            <span>Delete Member</span> 
-                                        </a>                                   
+                    @if(!$members->isEmpty())
+                        @foreach($members as $member)
+                        <tr>
+                            <td>{{\Illuminate\Support\Str::limit($member->university_name,30,' ...')}}</td>
+                            <td>{{$member->city}}</td>
+                            <td>{{$member->country}}</td>
+                            <td>{{$member->number_of_students}}</td>
+                            <td>{{$member->website}}</td>
+                            <td class="actionsContainer">
+                                <div class="dropdown">
+                                    <button class="actionsBtn" onclick="togglePopMenu()">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                    <div class="popupMenu" id="popUpMenu">
+                                        <div class="menu-item">
+                                            <a href="{{route('member.show',['id'=>$member->id])}}">
+                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                                <span>View Member</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="{{route('member.edit',['id'=>$member->id])}}">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                <span>Edit Member</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a class="deleteBtn" id="deleteBtn" data-id="{{$member->id}}">
+                                                <i class="fa-solid fa-trash"></i>
+                                                <span>Delete Member</span> 
+                                            </a>                                   
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
+                            </td>
+                        </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="4">
+                                No Members Found. 
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
             @if(!empty($members))
@@ -74,21 +82,23 @@
                 <span class="close" id="hideDialog">&times;</span>
             </div>
             <div class="dialog-body">
-                <form action="{{route('member.destroy',$member->id)}}" method="POST" id="formDelete">
-                    @csrf
-                    @method('DELETE')
-                    <div class="">
-                        <span>Are you Sure you Want to delete the Member?</span>
-                    </div>
-                    <div class="actionBtns">
-                        <div class="cancelBtn" id="cancelDelete">
-                            Cancel
+                @if(isset($member))
+                    <form action="{{route('member.destroy',$member->id)}}" method="POST" id="formDelete">
+                        @csrf
+                        @method('DELETE')
+                        <div class="">
+                            <span>Are you Sure you Want to delete the Member?</span>
                         </div>
-                        <div class="deleteBtn" id="confirmDelete">
-                            Delete
+                        <div class="actionBtns">
+                            <div class="cancelBtn" id="cancelDelete">
+                                Cancel
+                            </div>
+                            <div class="deleteBtn" id="confirmDelete">
+                                Delete
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

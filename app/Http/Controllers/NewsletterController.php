@@ -42,14 +42,12 @@ class NewsletterController extends Controller
                 'document' => 'required|file|mimes:pdf,docx|max:2048',
             ]);
 
-            Log::info($validatedData);
-
             if($request->hasFile('document')){
                 $document=$request->file('document');
                 $extension=$document->getClientOriginalExtension();
                 $filename=time().'.'.$extension;
 
-                $document->move('uploads/newletters/',$filename);
+                $document->move('uploads/newsletters/',$filename);
 
                 $newsletter=Newsletter::create([
                     'title'=>$validatedData['title'],
@@ -60,7 +58,10 @@ class NewsletterController extends Controller
 
                 $newsletter->save();
 
-                return view('newsletter')->with('success','Event Successfully Added');
+                $perPage=25;
+                $newsletters=Newsletter::orderBy('created_at','desc')->paginate($perPage);
+
+                return view('newsletter',compact('newsletters'))->with('success','Event Successfully Added');
             }
             return response()->json(['message' => 'File was not found']);
         }catch(Exception $e){
@@ -111,5 +112,24 @@ class NewsletterController extends Controller
         $newsletter->delete();
     
         return redirect()->route('newsletter')->with('success','Newsletter Deleted Successfully');
+    }
+
+    public function getNewsletters(){
+        $newsletters=Newsletter::orderBy('created_at', 'desc')->take(3)->get();
+        return view('web.newsletter-web',compact('newsletters'));
+    }
+
+    public function downloadNewsletter(string $id){
+        $newsletter=Newsletter::findOrFail($id);
+
+        if($newsletter){
+            $filePath = public_path('uploads/newsletters/' . $newsletter->document_path);
+            if (file_exists($filePath)) {
+                return response()->file($filePath)->deleteFileAfterSend(true);;
+            } else {
+                Log::info('File not Found'.$filePath);
+                return redirect()->back()->with('error', 'File not found.');
+            }
+        }
     }
 }

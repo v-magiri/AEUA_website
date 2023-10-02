@@ -23,34 +23,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($newsletters as $newsletter)
-                        <tr>
-                            <td>{{$newsletter -> title}}</td>
-                            <td>{{$newsletter -> issued_by}}</td>
-                            <td>{{$newsletter -> issued_on}}</td>
-                            <td class="actionsContainer">
-                                <div class="dropdown">
-                                    <button class="actionsBtn" onclick="togglePopMenu()">
-                                        <i class="fa-solid fa-ellipsis"></i>
-                                    </button>
-                                    <div class="popupMenu" id="popUpMenu">
-                                        <div class="menu-item">
-                                            <a href="{{route('newsletter.show',['id'=>$newsletter->id])}}">
-                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                                <span>View Newsletter</span>
-                                            </a>
-                                        </div>
-                                        <div class="menu-item">
-                                            <a class="deleteBtn" id="deleteBtn" data-id="{{$newsletter->id}}">
-                                                <i class="fa-solid fa-trash"></i>
-                                                <span>Delete Newsletter</span>
-                                            </a>
+                    @if(!$newsletters->isEmpty())
+                        @foreach($newsletters as $newsletter)
+                            <tr>
+                                <td>{{$newsletter -> title}}</td>
+                                <td>{{$newsletter -> issued_by}}</td>
+                                <td>{{$newsletter -> issued_on}}</td>
+                                <td class="actionsContainer">
+                                    <div class="dropdown">
+                                        <button class="actionsBtn" onclick="togglePopMenu()">
+                                            <i class="fa-solid fa-ellipsis"></i>
+                                        </button>
+                                        <div class="popupMenu" id="popUpMenu">
+                                            <div class="menu-item">
+                                                <a href="{{route('newsletter.show',['id'=>$newsletter->id])}}">
+                                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                                    <span>View Newsletter</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="deleteBtn" id="deleteBtn" data-id="{{$newsletter->id}}">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                    <span>Delete Newsletter</span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="4">
+                                No Newsletters Found. Please create 
                             </td>
                         </tr>
-                    @endforeach
+                    @endif
                 </tbody>
             </table>
             @if(!empty($newsletters))
@@ -70,21 +78,23 @@
                 <span class="close" id="hideDialog">&times;</span>
             </div>
             <div class="dialog-body">
-                <form action="{{route('newsletter.destroy',$newsletter->id)}}" method="POST" id="formDelete">
-                    @csrf
-                    @method('DELETE')
-                    <div class="">
-                        <span>Are you Sure you Want to delete the Newsletter?</span>
-                    </div>
-                    <div class="actionBtns">
-                        <div class="cancelBtn" id="cancelDelete">
-                            Cancel
+                @if(isset($newsletter))
+                    <form action="{{route('newsletter.destroy',$newsletter -> id)}}" method="POST" id="formDelete">
+                        @csrf
+                        @method('DELETE')
+                        <div class="">
+                            <span>Are you Sure you Want to delete the Newsletter?</span>
                         </div>
-                        <div class="deleteBtn" id="confirmDelete">
-                            Delete
+                        <div class="actionBtns">
+                            <div class="cancelBtn" id="cancelDelete">
+                                Cancel
+                            </div>
+                            <div class="deleteBtn" id="confirmDelete">
+                                Delete
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

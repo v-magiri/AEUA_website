@@ -15,21 +15,23 @@
     		<div class="row">
     			<div class="col-md-12 ftco-animate">
     				<div class="carousel-cause owl-carousel">
+              @foreach($newsletters as $newsletter)
 	    				<div class="item">
 	    					<div class="newletter-entry">
 		    					<div class="text p-3 p-md-4">
-		    						<h3><a href="https://sdgs.un.org/events/science-technology-and-innovation-africa-day-2023-50188">Science Technology and Innovation in Africa Day 2023</a></h3>
+		    						<h3><a href="https://sdgs.un.org/events/science-technology-and-innovation-africa-day-2023-50188">{{$newsletter-> title}}</a></h3>
                     <div class="newsletter-box my-2">
-                      <div class="issue-entry"><span>Issued On:</span> February 2023 </div>
-                      <div class="issue-entry"><span>Issued By:</span> Author Name </div>
+                      <div class="issue-entry"><span>Issued On:</span> {{$newsletter ->issued_on}} </div>
+                      <div class="issue-entry"><span>Issued By:</span> {{$newsletter -> issued_by}} </div>
                     </div>
                     <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> -->
                     <div class="newsletter-actions">
-                      <div class="download-btn"><a href="#">Download Newsletter<i class="fa-solid fa-cloud-arrow-down ml-2"></i></a></div> 
+                      <div class="download-btn"><a href="{{route('download.newsletter', $newsletter -> id)}}">Download Newsletter<i class="fa-solid fa-cloud-arrow-down ml-2"></i></a></div> 
                     </div>
 		    					</div>
 		    				</div>
 	    				</div>
+              @endforeach
     				</div>
     			</div>
     		</div>

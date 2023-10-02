@@ -26,40 +26,48 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($events as $event)
-                    <tr>
-                        <td>{{$event->theme}}</td>
-                        <td>{{$event->event_date}}</td>
-                        <td>{{$event->location}}</td>
-                        <td class="actionsContainer">
-                            <div class="dropdown">
-                                <button class="actionsBtn" onclick="togglePopMenu()">
-                                    <i class="fa-solid fa-ellipsis"></i>
-                                </button>
-                                <div class="popupMenu" id="popUpMenu">
-                                    <div class="menu-item" id="viewEventBtn">
-                                        <a href="{{route('event.show',['id'=>$event->id])}}">
-                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                            <span>View Event</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item" id="editEventBtn" >
-                                        <a href="{{route('event.edit',['id'=>$event->id])}}">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                            <span>Edit Event</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">  
-                                        <a class="deleteBtn" id="deleteBtn" data-id="{{$event->id}}">
-                                            <i class="fa-solid fa-trash"></i>
-                                            <span>Delete Event</span>
-                                        </a>
+                    @if(!$events->isEmpty())
+                        @foreach($events as $event)
+                        <tr>
+                            <td>{{$event->theme}}</td>
+                            <td>{{$event->event_date}}</td>
+                            <td>{{$event->location}}</td>
+                            <td class="actionsContainer">
+                                <div class="dropdown">
+                                    <button class="actionsBtn" onclick="togglePopMenu()">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                    <div class="popupMenu" id="popUpMenu">
+                                        <div class="menu-item" id="viewEventBtn">
+                                            <a href="{{route('event.show',['id'=>$event->id])}}">
+                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                                <span>View Event</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item" id="editEventBtn" >
+                                            <a href="{{route('event.edit',['id'=>$event->id])}}">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                <span>Edit Event</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">  
+                                            <a class="deleteBtn" id="deleteBtn" data-id="{{$event->id}}">
+                                                <i class="fa-solid fa-trash"></i>
+                                                <span>Delete Event</span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
+                            </td>
+                        </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="4">
+                                No Events Found. Please create 
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
             @if(!empty($events))
@@ -80,21 +88,23 @@
                 <span class="close" id="hideDialog">&times;</span>
             </div>
             <div class="dialog-body">
-                <form action="{{route('event.destroy',$event->id)}}" method="POST" id="formDelete">
-                    @csrf
-                    @method('DELETE')
-                    <div class="">
-                        <span>Are you Sure you Want to delete the Event?</span>
-                    </div>
-                    <div class="actionBtns">
-                        <div class="cancelBtn" id="cancelDelete">
-                            Cancel
+                @if(isset($event))
+                    <form action="{{route('event.destroy',$event->id)}}" method="POST" id="formDelete">
+                        @csrf
+                        @method('DELETE')
+                        <div class="">
+                            <span>Are you Sure you Want to delete the Event?</span>
                         </div>
-                        <div class="deleteBtn" id="confirmDelete">
-                            Delete
+                        <div class="actionBtns">
+                            <div class="cancelBtn" id="cancelDelete">
+                                Cancel
+                            </div>
+                            <div class="deleteBtn" id="confirmDelete">
+                                Delete
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

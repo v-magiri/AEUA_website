@@ -137,9 +137,14 @@ Route::get('/events', function () {
 
 Route::get('/about-us', [MemberController::class,"getMembers"]);
 
-Route::get('/newsletters', function () { 
-    return view('web.newsletter-web');
-});
+Route::get('/newsletters',
+    [NewsletterController::class,'getNewsletters'])
+    ->name('web.newsletters');
+
+Route::get('/download/newsletter/{id}',
+    [NewsletterController::class,'downloadNewsletter'])
+    ->name('download.newsletter');
+
 Route::get('/funding', function () {
     return view('web.funding-web');
 });
